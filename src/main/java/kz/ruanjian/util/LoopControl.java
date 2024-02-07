@@ -9,7 +9,7 @@ public class LoopControl {
         this.maxLoops = maxLoops;
     }
 
-    boolean canExecute() {
+    public boolean canExecute() {
         if (maxLoops < 0) {
             return true;
         }
