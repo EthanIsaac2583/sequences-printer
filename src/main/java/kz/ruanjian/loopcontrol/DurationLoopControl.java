@@ -7,9 +7,9 @@ public class DurationLoopControl implements LoopControl {
     private final int duration;
     private final AtomicLong startMillis;
 
-    public DurationLoopControl(int duration, long startMillis) {
+    public DurationLoopControl(int duration) {
         this.duration = duration;
-        this.startMillis = new AtomicLong(startMillis);
+        this.startMillis = new AtomicLong(0);
     }
 
     public void setStartMillis(long startMillis) {
