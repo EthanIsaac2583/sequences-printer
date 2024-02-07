@@ -1,6 +1,8 @@
 package kz.ruanjian.loopcontrol;
 
-public class InfiniteLoopControl implements LoopControl {
+import kz.ruanjian.OncePerThread;
+
+public class InfiniteLoopControl implements LoopControl, OncePerThread {
 
     @Override
     public boolean canExecute() {
