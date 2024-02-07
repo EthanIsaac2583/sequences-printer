@@ -2,7 +2,6 @@ package kz.ruanjian;
 
 import kz.ruanjian.logger.ConsoleLogger;
 import kz.ruanjian.logger.Logger;
-import kz.ruanjian.loopcontrol.CountLoopControl;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 import kz.ruanjian.loopcontrol.InfiniteLoopControl;
 import kz.ruanjian.loopcontrol.LoopControl;
@@ -34,6 +33,8 @@ public class Main {
         new Thread(new SleepingRunner(arithmeticFivesProducer, infiniteLoopControl, sleeper, fivesIdleMillis)).start();
 
         DurationLoopControl printerWorkDurationControl = new DurationLoopControl(new SafeRandom(200, 500).get());
-        new Thread(new SleepingRunner(new Printer(stack, printerWorkDurationControl, logger), sleeper, new SafeRandom(10000, 12000))).start();
+        Printer printer = new Printer(stack, printerWorkDurationControl, logger);
+        SafeRandom printerIdleMillis = new SafeRandom(10000, 12000);
+        new Thread(new SleepingRunner(printer, infiniteLoopControl, sleeper, printerIdleMillis)).start();
     }
 }
