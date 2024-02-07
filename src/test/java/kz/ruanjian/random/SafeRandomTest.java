@@ -1,6 +1,6 @@
 package kz.ruanjian.random;
 
-import kz.ruanjian.threaded.BadArguments;
+import kz.ruanjian.threaded.BadArgumentsException;
 import kz.ruanjian.threaded.SafeRandom;
 import org.junit.jupiter.api.Test;
 
@@ -11,13 +11,13 @@ class SafeRandomTest {
     @Test
     void get_shouldThrowBadArguments_whenMaxSmallerThanMin() {
         SafeRandom random = new SafeRandom(-2, -10);
-        assertThrows(BadArguments.class, random::get);
+        assertThrows(BadArgumentsException.class, random::get);
     }
 
     @Test
     void get_shouldThrowBadArguments_whenMinMaxEquals() {
         SafeRandom random = new SafeRandom(0, 0);
-        assertThrows(BadArguments.class, random::get);
+        assertThrows(BadArgumentsException.class, random::get);
     }
 
     @Test

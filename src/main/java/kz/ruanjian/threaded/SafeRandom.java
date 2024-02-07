@@ -16,7 +16,7 @@ public class SafeRandom {
         try {
             return ThreadLocalRandom.current().nextInt(min, max);
         } catch (IllegalArgumentException e) {
-            throw new BadArguments(e);
+            throw new BadArgumentsException(e);
         }
     }
 }
