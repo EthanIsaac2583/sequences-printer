@@ -1,6 +1,6 @@
 package kz.ruanjian;
 
-import kz.ruanjian.logger.ConsoleLogger;
+import kz.ruanjian.logger.SafeConsoleLogger;
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 import kz.ruanjian.loopcontrol.InfiniteLoopControl;
@@ -18,7 +18,7 @@ public class Main {
         Deque<Integer> stack = new ConcurrentLinkedDeque<>();
 
         SafeSleeper sleeper = new SafeSleeper();
-        Logger logger = new ConsoleLogger();
+        Logger logger = new SafeConsoleLogger();
         LoopControl infiniteLoopControl = new InfiniteLoopControl();
 
         ArithmeticSequence arithmeticThrees = new ArithmeticSequence(3, 3);
