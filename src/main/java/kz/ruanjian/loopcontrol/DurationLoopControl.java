@@ -16,8 +16,8 @@ public class DurationLoopControl implements LoopControl {
         this.durationMaxMillis = durationMaxMillis;
     }
 
-    public synchronized void fromMillis(long startMillis) {
-        this.startMillis.set(startMillis);
+    public synchronized void pointCurrentTime() {
+        this.startMillis.set(System.currentTimeMillis());
         this.duration.set(new SafeRandom(durationMinMillis, durationMaxMillis).get());
     }
 
