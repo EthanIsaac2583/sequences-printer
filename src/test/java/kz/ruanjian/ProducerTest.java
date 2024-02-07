@@ -38,7 +38,7 @@ class ProducerTest {
     }
 
     @Test
-    void run_shouldDoAppropriateActionsNTime_whenCorrespondingArgumentsPassed() {
+    void run_shouldDoAppropriateActions_whenInvoked() {
         int expected = dataGenerator.randomInt(100, 1_000_000);
         doReturn(expected).when(sequence).generate();
 
