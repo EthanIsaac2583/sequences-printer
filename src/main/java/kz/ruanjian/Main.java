@@ -32,7 +32,7 @@ public class Main {
         SafeRandom fivesIdleMillis = new SafeRandom(2000, 2500);
         new Thread(new SleepingRunner(arithmeticFivesProducer, infiniteLoopControl, sleeper, fivesIdleMillis)).start();
 
-        DurationLoopControl printerWorkDurationControl = new DurationLoopControl(new SafeRandom(200, 500).get());
+        DurationLoopControl printerWorkDurationControl = new DurationLoopControl(200, 500);
         Printer printer = new Printer(stack, printerWorkDurationControl, logger);
         SafeRandom printerIdleMillis = new SafeRandom(10000, 12000);
         new Thread(new SleepingRunner(printer, infiniteLoopControl, sleeper, printerIdleMillis)).start();
