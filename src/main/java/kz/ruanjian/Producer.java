@@ -22,7 +22,9 @@ public class Producer implements Runnable {
     @Override
     public void run() {
         logger.log("BEFORE: " + stack);
+
         stack.push(sequence.generate());
+
         logger.log("AFTER : " + stack);
     }
 }

@@ -1,10 +1,8 @@
 package kz.ruanjian;
 
 import kz.ruanjian.logger.ConsoleLogger;
-import kz.ruanjian.logger.Logger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 import kz.ruanjian.loopcontrol.InfiniteLoopControl;
-import kz.ruanjian.loopcontrol.LoopControl;
 import kz.ruanjian.sequence.ArithmeticSequence;
 import kz.ruanjian.threaded.SafeRandom;
 import kz.ruanjian.threaded.SafeSleeper;
