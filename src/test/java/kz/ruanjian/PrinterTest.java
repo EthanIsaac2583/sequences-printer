@@ -33,7 +33,7 @@ class PrinterTest {
     Printer printer;
 
     @Test
-    void run_should_when1() {
+    void run_shouldDoAppropriateActions_whenCanExecuteAndHasStackValues() {
         doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(durationLoopControl).canExecute();
         doReturn(12).doReturn(8).doReturn(4).when(stack).poll();
 
@@ -48,6 +48,23 @@ class PrinterTest {
         inOrder.verify(logger).log("Printed: " + 8);
         inOrder.verify(stack).poll();
         inOrder.verify(logger).log("Printed: " + 4);
+        inOrder.verify(logger).log("------- [PRINT WINDOW] closed -------");
+    }
+
+    @Test
+    void run_shouldDoAppropriateActions_whenCanExecuteAndHasLackStackValues() {
+        doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(durationLoopControl).canExecute();
+        doReturn(100).when(stack).poll();
+
+        InOrder inOrder = inOrder(logger, stack);
+
+        printer.run();
+
+        inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
+        inOrder.verify(stack).poll();
+        inOrder.verify(logger).log("Printed: " + 100);
+        inOrder.verify(stack).poll();
+        inOrder.verify(stack).poll();
         inOrder.verify(logger).log("------- [PRINT WINDOW] closed -------");
     }
 }
