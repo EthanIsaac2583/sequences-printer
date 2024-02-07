@@ -1,21 +1,23 @@
 package kz.ruanjian.loopcontrol;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class DurationLoopControl implements LoopControl {
 
     private final int duration;
-    private long startMillis;
+    private final AtomicLong startMillis;
 
     public DurationLoopControl(int duration, long startMillis) {
         this.duration = duration;
-        this.startMillis = startMillis;
+        this.startMillis = new AtomicLong(startMillis);
     }
 
     public void setStartMillis(long startMillis) {
-        this.startMillis = startMillis;
+        this.startMillis.set(startMillis);
     }
 
     @Override
-    public boolean canExecute() {
-        return System.currentTimeMillis() - startMillis <= duration;
+    public synchronized boolean canExecute() {
+        return System.currentTimeMillis() - startMillis.get() <= duration;
     }
 }
