@@ -2,7 +2,10 @@ package kz.ruanjian;
 
 import kz.ruanjian.logger.ConsoleLogger;
 import kz.ruanjian.logger.Logger;
+import kz.ruanjian.loopcontrol.CountLoopControl;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
+import kz.ruanjian.loopcontrol.InfiniteLoopControl;
+import kz.ruanjian.loopcontrol.LoopControl;
 import kz.ruanjian.sequence.ArithmeticIntegerSequence;
 import kz.ruanjian.sequence.IntegerSequence;
 import kz.ruanjian.threaded.SafeRandom;
@@ -18,12 +21,17 @@ public class Main {
 
         SafeSleeper sleeper = new SafeSleeper();
         Logger logger = new ConsoleLogger();
+        LoopControl infiniteLoopControl = new InfiniteLoopControl();
 
         IntegerSequence arithmeticThrees = new ArithmeticIntegerSequence(3, 3);
-        new Thread(new SleepingRunner(new Producer(stack, arithmeticThrees, logger), sleeper, new SafeRandom(200, 300))).start();
+        Producer arithmeticThreesProducer = new Producer(stack, arithmeticThrees, logger);
+        SafeRandom threesIdleMillis = new SafeRandom(200, 300);
+        new Thread(new SleepingRunner(arithmeticThreesProducer, infiniteLoopControl, sleeper, threesIdleMillis)).start();
 
         IntegerSequence arithmeticFives = new ArithmeticIntegerSequence(5, 5);
-        new Thread(new SleepingRunner(new Producer(stack, arithmeticFives, logger), sleeper, new SafeRandom(2000, 2500))).start();
+        Producer arithmeticFivesProducer = new Producer(stack, arithmeticFives, logger);
+        SafeRandom fivesIdleMillis = new SafeRandom(2000, 2500);
+        new Thread(new SleepingRunner(arithmeticFivesProducer, infiniteLoopControl, sleeper, fivesIdleMillis)).start();
 
         DurationLoopControl printerWorkDurationControl = new DurationLoopControl(new SafeRandom(200, 500).get());
         new Thread(new SleepingRunner(new Printer(stack, printerWorkDurationControl, logger), sleeper, new SafeRandom(10000, 12000))).start();
