@@ -1,6 +1,6 @@
 package kz.ruanjian.sequence;
 
-import kz.ruanjian.random.SafeRandom;
+import kz.ruanjian.threaded.SafeRandom;
 
 public class DelayedIntegerSequence implements IntegerSequence {
 

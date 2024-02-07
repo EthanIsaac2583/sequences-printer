@@ -1,5 +1,6 @@
 package kz.ruanjian.random;
 
+import kz.ruanjian.threaded.SafeRandom;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

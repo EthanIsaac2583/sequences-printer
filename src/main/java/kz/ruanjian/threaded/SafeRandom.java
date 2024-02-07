@@ -1,4 +1,4 @@
-package kz.ruanjian.random;
+package kz.ruanjian.threaded;
 
 import java.util.concurrent.ThreadLocalRandom;
 
