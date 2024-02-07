@@ -8,63 +8,63 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoopControlTest {
+class CountLoopControlTest {
 
     @Test
     void canExecute_shouldReturnTrueEveryTime_whenNegativeMaxLoopsPassed() {
-        LoopControl loopControl = new LoopControl(-1);
+        CountLoopControl countLoopControl = new CountLoopControl(-1);
 
         List<Boolean> expected = Arrays.asList(true, true, true);
 
         List<Boolean> actual = new ArrayList<>();
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
 
         assertEquals(expected, actual);
     }
 
     @Test
     void canExecute_shouldReturnFalseEveryTime_whenZeroMaxLoopsPassed() {
-        LoopControl loopControl = new LoopControl(0);
+        CountLoopControl countLoopControl = new CountLoopControl(0);
 
         List<Boolean> expected = Arrays.asList(false, false, false);
 
         List<Boolean> actual = new ArrayList<>();
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
 
         assertEquals(expected, actual);
     }
 
     @Test
     void canExecute_shouldReturnTrueOnce_whenOneMaxLoopsPassed() {
-        LoopControl loopControl = new LoopControl(1);
+        CountLoopControl countLoopControl = new CountLoopControl(1);
 
         List<Boolean> expected = Arrays.asList(true, false, false);
 
         List<Boolean> actual = new ArrayList<>();
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
 
         assertEquals(expected, actual);
     }
 
     @Test
     void canExecute_shouldReturnTrueNTimes_whenNMaxLoopsPassed() {
-        LoopControl loopControl = new LoopControl(3);
+        CountLoopControl countLoopControl = new CountLoopControl(3);
 
         List<Boolean> expected = Arrays.asList(true, true, true, false, false, false);
 
         List<Boolean> actual = new ArrayList<>();
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
-        actual.add(loopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
+        actual.add(countLoopControl.canExecute());
 
         assertEquals(expected, actual);
     }
