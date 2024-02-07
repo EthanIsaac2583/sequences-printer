@@ -1,4 +1,4 @@
-package kz.ruanjian.util;
+package kz.ruanjian.loopcontrol;
 
 public interface LoopControl {
 

@@ -2,7 +2,7 @@ package kz.ruanjian;
 
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.sequence.IntegerSequence;
-import kz.ruanjian.util.CountLoopControl;
+import kz.ruanjian.loopcontrol.CountLoopControl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
