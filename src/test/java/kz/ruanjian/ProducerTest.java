@@ -1,8 +1,9 @@
 package kz.ruanjian;
 
+import kz.ruanjian.data.DataGenerator;
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.sequence.IntegerSequence;
-import kz.ruanjian.loopcontrol.CountLoopControl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,9 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,26 +25,27 @@ class ProducerTest {
     IntegerSequence sequence;
 
     @Mock
-    CountLoopControl countLoopControl;
-
-    @Mock
     Logger logger;
 
     @InjectMocks
     Producer producer;
 
+    DataGenerator dataGenerator;
+
+    @BeforeEach
+    void setUp() {
+        dataGenerator = new DataGenerator();
+    }
+
     @Test
     void run_shouldDoAppropriateActionsNTime_whenCorrespondingArgumentsPassed() {
-        doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(countLoopControl).canExecute();
-        doReturn(4).doReturn(8).doReturn(12).when(sequence).generate();
+        int expected = dataGenerator.randomInt(100, 1_000_000);
+        doReturn(expected).when(sequence).generate();
 
         producer.run();
 
-        verify(stack).push(4);
-        verify(stack).push(8);
-        verify(stack).push(12);
-        verify(countLoopControl, atLeast(3)).canExecute();
-        verify(logger, times(3)).log("BEFORE: " + stack);
-        verify(logger, times(3)).log("AFTER : " + stack);
+        verify(logger).log("BEFORE: " + stack);
+        verify(stack).push(expected);
+        verify(logger).log("AFTER : " + stack);
     }
 }
