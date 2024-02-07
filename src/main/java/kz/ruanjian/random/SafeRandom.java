@@ -4,7 +4,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SafeRandom {
 
-    public int get(int min, int max) {
+    private final int min;
+    private final int max;
+
+    public SafeRandom(int min, int max) {
+        this.min = min;
+        this.max = max;
+    }
+
+    public int get() {
         return ThreadLocalRandom.current().nextInt(min, max);
     }
 }

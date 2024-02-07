@@ -1,33 +1,28 @@
 package kz.ruanjian.random;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SafeRandomTest {
 
-    SafeRandom random;
-
-    @BeforeEach
-    void setUp() {
-        random = new SafeRandom();
-    }
-
     @Test
     void get_shouldThrowIllegalArgumentException_whenMaxSmallerThanMin() {
-        assertThrows(IllegalArgumentException.class, () -> random.get(-2, -10));
+        SafeRandom random = new SafeRandom(-2, -10);
+        assertThrows(IllegalArgumentException.class, random::get);
     }
 
     @Test
     void get_shouldThrowIllegalArgumentException_whenMinMaxEquals() {
-        assertThrows(IllegalArgumentException.class, () -> random.get(0, 0));
+        SafeRandom random = new SafeRandom(0, 0);
+        assertThrows(IllegalArgumentException.class, random::get);
     }
 
     @Test
     void get_shouldReturnMin_whenMaxIsGreaterTo1() {
+        SafeRandom random = new SafeRandom(13, 14);
         int expected = 13;
-        int actual = random.get(13, 14);
+        int actual = random.get();
 
         assertEquals(expected, actual);
     }
@@ -36,8 +31,9 @@ class SafeRandomTest {
     void get_shouldReturnValidNumber_whenValidNegativeMinMaxPassed() {
         int min = -10;
         int max = -2;
+        SafeRandom random = new SafeRandom(min, max);
 
-        int actual = random.get(min, max);
+        int actual = random.get();
 
         assertTrue(exclusivelyBetween(min, max, actual));
     }
@@ -46,8 +42,9 @@ class SafeRandomTest {
     void get_shouldReturnValidNumber_whenValidPositiveMinMaxPassed() {
         int min = 0;
         int max = 10;
+        SafeRandom random = new SafeRandom(min, max);
 
-        int actual = random.get(min, max);
+        int actual = random.get();
 
         assertTrue(exclusivelyBetween(min, max, actual));
     }

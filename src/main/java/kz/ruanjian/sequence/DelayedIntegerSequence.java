@@ -6,17 +6,10 @@ public class DelayedIntegerSequence implements IntegerSequence {
 
     private final SafeRandom random;
     private final IntegerSequence sequence;
-    private final int delayMinMillis;
-    private final int delayMaxMillis;
 
-    public DelayedIntegerSequence(SafeRandom random,
-                                  IntegerSequence sequence,
-                                  int delayMinMillis,
-                                  int delayMaxMillis) {
+    public DelayedIntegerSequence(SafeRandom random, IntegerSequence sequence) {
         this.random = random;
         this.sequence = sequence;
-        this.delayMinMillis = delayMinMillis;
-        this.delayMaxMillis = delayMaxMillis;
     }
 
     @Override
@@ -27,7 +20,7 @@ public class DelayedIntegerSequence implements IntegerSequence {
 
     private void trySleep() {
         try {
-            Thread.sleep(random.get(delayMinMillis, delayMaxMillis));
+            Thread.sleep(random.get());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
