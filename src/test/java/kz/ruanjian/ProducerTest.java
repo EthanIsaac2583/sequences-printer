@@ -2,7 +2,7 @@ package kz.ruanjian;
 
 import kz.ruanjian.data.DataGenerator;
 import kz.ruanjian.logger.Logger;
-import kz.ruanjian.sequence.IntegerSequence;
+import kz.ruanjian.sequence.ArithmeticSequence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ class ProducerTest {
     ConcurrentLinkedDeque<Integer> stack;
 
     @Mock
-    IntegerSequence sequence;
+    ArithmeticSequence sequence;
 
     @Mock
     Logger logger;

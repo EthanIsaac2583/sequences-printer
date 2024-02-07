@@ -8,11 +8,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ArithmeticIntegerSequenceTest {
+class ArithmeticSequenceTest {
 
     @Test
     void generate_shouldReturnArithmeticSequence_whenInvokedMultipleTimesOnTwos() {
-        IntegerSequence sequence = new ArithmeticIntegerSequence(2, 2);
+        ArithmeticSequence sequence = new ArithmeticSequence(2, 2);
 
         List<Integer> expected = Arrays.asList(2, 4, 6, 8, 10);
 
@@ -28,7 +28,7 @@ class ArithmeticIntegerSequenceTest {
 
     @Test
     void generate_shouldReturnArithmeticSequence_whenInvokedMultipleTimesOnSevens() {
-        IntegerSequence sequence = new ArithmeticIntegerSequence(7, 7);
+        ArithmeticSequence sequence = new ArithmeticSequence(7, 7);
 
         List<Integer> expected = Arrays.asList(7, 14, 21, 28, 35);
 
