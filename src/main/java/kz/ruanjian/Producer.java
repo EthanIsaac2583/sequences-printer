@@ -8,30 +8,26 @@ import java.util.Deque;
 
 public class Producer implements Runnable {
 
-    private final Deque<String> stack;
+    private final Deque<Integer> stack;
     private final IntegerSequence sequence;
     private final LoopControl loopControl;
     private final Logger logger;
-    private final String prefix;
 
-    public Producer(Deque<String> stack,
+    public Producer(Deque<Integer> stack,
                     IntegerSequence sequence,
                     LoopControl loopControl,
-                    Logger logger,
-                    String prefix) {
+                    Logger logger) {
         this.stack = stack;
         this.sequence = sequence;
         this.loopControl = loopControl;
         this.logger = logger;
-        this.prefix = prefix;
     }
 
     @Override
     public void run() {
         while (loopControl.canExecute()) {
-            int number = sequence.generate();
             logger.log("BEFORE: " + stack);
-            stack.push(prefix + number);
+            stack.push(sequence.generate());
             logger.log("AFTER : " + stack);
         }
     }
