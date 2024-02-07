@@ -8,30 +8,21 @@ public class DurationLoopControl implements LoopControl {
 
     private final int durationMinMillis;
     private final int durationMaxMillis;
-    private long duration;
-    private AtomicLong startMillis;
+    private final AtomicLong duration = new AtomicLong(0L);
+    private final AtomicLong startMillis = new AtomicLong(0L);
 
     public DurationLoopControl(int durationMinMillis, int durationMaxMillis) {
         this.durationMinMillis = durationMinMillis;
         this.durationMaxMillis = durationMaxMillis;
-        setStateValues(durationMinMillis, durationMaxMillis);
     }
 
-    public void setStartMillis(long startMillis) {
+    public synchronized void fromMillis(long startMillis) {
         this.startMillis.set(startMillis);
-    }
-
-    public void reset() {
-        setStateValues(this.durationMinMillis, this.durationMaxMillis);
+        this.duration.set(new SafeRandom(durationMinMillis, durationMaxMillis).get());
     }
 
     @Override
-    public synchronized boolean canExecute() {
-        return System.currentTimeMillis() - startMillis.get() <= duration;
-    }
-
-    private void setStateValues(int durationMinMillis, int durationMaxMillis) {
-        this.duration = new SafeRandom(durationMinMillis, durationMaxMillis).get();
-        this.startMillis = new AtomicLong(0L);
+    public boolean canExecute() {
+        return System.currentTimeMillis() - startMillis.get() <= duration.get();
     }
 }
