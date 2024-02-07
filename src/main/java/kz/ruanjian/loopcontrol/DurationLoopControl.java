@@ -22,7 +22,7 @@ public class DurationLoopControl implements LoopControl {
     }
 
     @Override
-    public boolean canExecute() {
+    public synchronized boolean canExecute() {
         return System.currentTimeMillis() - startMillis.get() <= duration.get();
     }
 }
