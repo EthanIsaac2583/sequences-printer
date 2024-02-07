@@ -13,6 +13,10 @@ public class SafeRandom {
     }
 
     public int get() {
-        return ThreadLocalRandom.current().nextInt(min, max);
+        try {
+            return ThreadLocalRandom.current().nextInt(min, max);
+        } catch (IllegalArgumentException e) {
+            throw new BadArguments(e);
+        }
     }
 }
