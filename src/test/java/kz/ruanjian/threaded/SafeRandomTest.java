@@ -1,7 +1,5 @@
-package kz.ruanjian.random;
+package kz.ruanjian.threaded;
 
-import kz.ruanjian.threaded.BadArgumentsException;
-import kz.ruanjian.threaded.SafeRandom;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

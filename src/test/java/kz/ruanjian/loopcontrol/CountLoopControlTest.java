@@ -1,6 +1,5 @@
-package kz.ruanjian.util;
+package kz.ruanjian.loopcontrol;
 
-import kz.ruanjian.loopcontrol.CountLoopControl;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
