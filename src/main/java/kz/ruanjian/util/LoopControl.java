@@ -14,9 +14,12 @@ public class LoopControl {
             return true;
         }
 
-        boolean result = currentLoop < maxLoops;
-        currentLoop++;
+        boolean isAllowed = currentLoop < maxLoops;
 
-        return result;
+        if (isAllowed) {
+            currentLoop++;
+        }
+
+        return isAllowed;
     }
 }
