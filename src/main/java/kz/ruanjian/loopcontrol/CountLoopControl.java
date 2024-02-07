@@ -1,12 +1,15 @@
 package kz.ruanjian.loopcontrol;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class CountLoopControl implements LoopControl {
 
     private final int maxLoops;
-    private int currentLoop;
+    private final AtomicInteger currentLoop;
 
     public CountLoopControl(int maxLoops) {
         this.maxLoops = maxLoops;
+        this.currentLoop = new AtomicInteger(0);
     }
 
     @Override
@@ -15,10 +18,10 @@ public class CountLoopControl implements LoopControl {
             return true;
         }
 
-        boolean isAllowed = currentLoop < maxLoops;
+        boolean isAllowed = currentLoop.get() < maxLoops;
 
         if (isAllowed) {
-            currentLoop++;
+            currentLoop.getAndIncrement();
         }
 
         return isAllowed;
