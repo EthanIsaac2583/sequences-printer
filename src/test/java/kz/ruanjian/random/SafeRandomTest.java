@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class SafeRandomTest {
 
     @Test
-    void get_shouldThrowBadArguments_whenMaxSmallerThanMin() {
+    void get_shouldThrowBadArgumentsException_whenMaxSmallerThanMin() {
         SafeRandom random = new SafeRandom(-2, -10);
         assertThrows(BadArgumentsException.class, random::get);
     }
 
     @Test
-    void get_shouldThrowBadArguments_whenMinMaxEquals() {
+    void get_shouldThrowBadArgumentsException_whenMinMaxEquals() {
         SafeRandom random = new SafeRandom(0, 0);
         assertThrows(BadArgumentsException.class, random::get);
     }
