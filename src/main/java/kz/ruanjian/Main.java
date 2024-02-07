@@ -25,10 +25,10 @@ public class Main {
         IntegerSequence delayedArithmeticThrees = new DelayedIntegerSequence(new SafeRandom(200, 300), sleeper, new ArithmeticIntegerSequence(3, 3));
         IntegerSequence delayedArithmeticFives = new DelayedIntegerSequence(new SafeRandom(2000, 2500), sleeper, new ArithmeticIntegerSequence(5, 5));
 
-        DurationLoopControl printDurationControl = new DurationLoopControl(new SafeRandom(200, 500).get());
+        DurationLoopControl printerWorkDurationControl = new DurationLoopControl(new SafeRandom(200, 500).get());
 
         new Thread(new Producer(stack, delayedArithmeticThrees, infiniteCountLoopControl, logger)).start();
         new Thread(new Producer(stack, delayedArithmeticFives, infiniteCountLoopControl, logger)).start();
-        new Thread(new SleepingRunner(new Printer(stack, printDurationControl, logger), sleeper, new SafeRandom(4000, 8000))).start();
+        new Thread(new SleepingRunner(new Printer(stack, printerWorkDurationControl, logger), sleeper, new SafeRandom(4000, 8000))).start();
     }
 }
