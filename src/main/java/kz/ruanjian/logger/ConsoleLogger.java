@@ -3,7 +3,9 @@ package kz.ruanjian.logger;
 public class ConsoleLogger implements Logger {
 
     @Override
-    public synchronized void log(String value) {
-        System.out.println(value);
+    public void log(String value) {
+        synchronized (System.out) {
+            System.out.println(value);
+        }
     }
 }
