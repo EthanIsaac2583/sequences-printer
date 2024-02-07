@@ -29,6 +29,6 @@ public class Main {
 
         new Thread(new Producer(stack, delayedArithmeticThrees, infiniteCountLoopControl, logger)).start();
         new Thread(new Producer(stack, delayedArithmeticFives, infiniteCountLoopControl, logger)).start();
-        new Thread(new Printer(stack, printDurationControl, infiniteCountLoopControl, sleeper, logger)).start();
+        new Thread(new SleepingRunner(new Printer(stack, printDurationControl, logger), sleeper, new SafeRandom(4000, 8000))).start();
     }
 }
