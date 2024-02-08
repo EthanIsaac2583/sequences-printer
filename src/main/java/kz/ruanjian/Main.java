@@ -25,10 +25,9 @@ public class Main {
         ProducerRunner arithmeticFivesProducerRunner = new ProducerRunner(stack, new ArithmeticSequence(5, 5));
         new Thread(new SleepingRunner(arithmeticFivesProducerRunner, infiniteLoopControl, sleeper, new SafeRandom(2000, 2500))).start();
 
-        PrinterFormatter printerFormatter = new PrinterFormatter(20);
-        ConsoleLogger logger = new ConsoleLogger();
-        PrinterRunner printerRunner = new PrinterRunner(stack, logger, printerFormatter);
-        PrintWindowRunner printWindowRunner = new PrintWindowRunner(printerRunner, new DurationLoopControl(new SafeRandom(2000, 4000)), logger, printerFormatter);
+        Printer printer = new Printer(new PrinterFormatter(26, 13), new ConsoleLogger());
+        Runnable printerRunner = new PrinterRunner(stack, printer);
+        Runnable printWindowRunner = new PrintWindowRunner(printerRunner, new DurationLoopControl(new SafeRandom(2000, 4000)), printer);
         Thread printerThread = new Thread(new SleepingRunner(printWindowRunner, infiniteLoopControl, sleeper, new SafeRandom(15000, 20000)));
         printerThread.setDaemon(true);
         printerThread.start();

@@ -8,14 +8,16 @@ public class PrinterFormatter implements OnePerThread {
 
     private static final String SPACER = " ";
 
-    private final int prefixMaxLength;
+    private final int timeLength;
+    private final int prefixLength;
 
-    public PrinterFormatter(int prefixMaxLength) {
-        this.prefixMaxLength = prefixMaxLength;
+    public PrinterFormatter(int timeLength, int prefixLength) {
+        this.timeLength = timeLength;
+        this.prefixLength = prefixLength;
     }
 
     public String timedMessage(String prefix, Object value) {
-        return toFixedLength(LocalDateTime.now().toString(), 30) + toFixedLength(prefix, prefixMaxLength) + value;
+        return toFixedLength(LocalDateTime.now().toString(), timeLength) + toFixedLength(prefix, prefixLength) + value;
     }
 
     private String toFixedLength(String value, int length) {

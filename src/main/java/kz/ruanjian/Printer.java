@@ -3,7 +3,7 @@ package kz.ruanjian;
 import kz.ruanjian.formatter.PrinterFormatter;
 import kz.ruanjian.logger.Logger;
 
-public class Printer {
+public class Printer implements OnePerThread {
 
     private final PrinterFormatter formatter;
     private final Logger logger;
