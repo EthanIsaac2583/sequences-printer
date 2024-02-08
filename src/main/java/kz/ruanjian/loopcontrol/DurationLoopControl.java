@@ -1,9 +1,9 @@
 package kz.ruanjian.loopcontrol;
 
-import kz.ruanjian.OncePerThread;
+import kz.ruanjian.OnePerThread;
 import kz.ruanjian.threaded.SafeRandom;
 
-public class DurationLoopControl implements LoopControl, OncePerThread {
+public class DurationLoopControl implements LoopControl, OnePerThread {
 
     private final SafeRandom random;
     private long duration;
