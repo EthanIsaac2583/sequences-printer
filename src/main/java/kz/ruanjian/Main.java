@@ -1,5 +1,6 @@
 package kz.ruanjian;
 
+import kz.ruanjian.formatter.PrinterFormatter;
 import kz.ruanjian.logger.ConsoleLogger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 import kz.ruanjian.loopcontrol.InfiniteLoopControl;
@@ -18,21 +19,15 @@ public class Main {
         SafeSleeper sleeper = new SafeSleeper();
         InfiniteLoopControl infiniteLoopControl = new InfiniteLoopControl();
 
-        ArithmeticSequence arithmeticThrees = new ArithmeticSequence(3, 3);
-        Producer arithmeticThreesProducer = new Producer(stack, arithmeticThrees);
-        SafeRandom threesIdleMillis = new SafeRandom(200, 300);
-        new Thread(new SleepingRunner(arithmeticThreesProducer, infiniteLoopControl, sleeper, threesIdleMillis)).start();
+        Producer arithmeticThreesProducer = new Producer(stack, new ArithmeticSequence(3, 3));
+        new Thread(new SleepingRunner(arithmeticThreesProducer, infiniteLoopControl, sleeper, new SafeRandom(500, 1000))).start();
 
-        ArithmeticSequence arithmeticFives = new ArithmeticSequence(5, 5);
-        Producer arithmeticFivesProducer = new Producer(stack, arithmeticFives);
-        SafeRandom fivesIdleMillis = new SafeRandom(2000, 2500);
-        new Thread(new SleepingRunner(arithmeticFivesProducer, infiniteLoopControl, sleeper, fivesIdleMillis)).start();
+        Producer arithmeticFivesProducer = new Producer(stack, new ArithmeticSequence(5, 5));
+        new Thread(new SleepingRunner(arithmeticFivesProducer, infiniteLoopControl, sleeper, new SafeRandom(2000, 2500))).start();
 
-        SafeRandom printWindowDurationMillis = new SafeRandom(200, 500);
-        DurationLoopControl printerWorkDurationControl = new DurationLoopControl(printWindowDurationMillis);
-        Printer printer = new Printer(stack, printerWorkDurationControl, new ConsoleLogger());
-        SafeRandom printerIdleMillis = new SafeRandom(10000, 12000);
-        Thread printerThread = new Thread(new SleepingRunner(printer, infiniteLoopControl, sleeper, printerIdleMillis));
+        DurationLoopControl printerWorkDurationControl = new DurationLoopControl(new SafeRandom(2000, 4000));
+        Printer printer = new Printer(stack, printerWorkDurationControl, new ConsoleLogger(), new PrinterFormatter(20));
+        Thread printerThread = new Thread(new SleepingRunner(printer, infiniteLoopControl, sleeper, new SafeRandom(15000, 20000)));
         printerThread.setDaemon(true);
         printerThread.start();
     }

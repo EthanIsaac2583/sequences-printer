@@ -11,18 +11,20 @@ public class Printer implements Runnable {
     private final Deque<Integer> stack;
     private final DurationLoopControl durationLoopControl;
     private final Logger logger;
+    private final PrinterFormatter formatter;
 
     public Printer(Deque<Integer> stack,
                    DurationLoopControl durationLoopControl,
-                   Logger logger) {
+                   Logger logger,
+                   PrinterFormatter formatter) {
         this.stack = stack;
         this.durationLoopControl = durationLoopControl;
         this.logger = logger;
+        this.formatter = formatter;
     }
 
     @Override
     public void run() {
-        PrinterFormatter formatter = new PrinterFormatter(20);
         logger.log(formatter.timedMessage("[PRINTER]", "------- [PRINT WINDOW] opened -------"));
         Long startMillis = System.currentTimeMillis();
 
