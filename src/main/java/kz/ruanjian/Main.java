@@ -1,7 +1,7 @@
 package kz.ruanjian;
 
 import kz.ruanjian.formatter.PrinterFormatter;
-import kz.ruanjian.logger.NonTestedFileLogger;
+import kz.ruanjian.logger.ConsoleLogger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 import kz.ruanjian.loopcontrol.InfiniteLoopControl;
 import kz.ruanjian.runner.PrintWindowRunner;
@@ -29,7 +29,7 @@ public class Main {
         Runnable arithmeticFivesProducerRunner = new ProducerRunner(stack, new ArithmeticSequence(5, 5));
         new Thread(new SleepAfterRunner(arithmeticFivesProducerRunner, infiniteLoopControl, sleeper, new SafeRandom(2000, 2500))).start();
 
-        Printer printer = new Printer(new PrinterFormatter(26, 13), new NonTestedFileLogger("./printed.txt"));
+        Printer printer = new Printer(new PrinterFormatter(26, 13), new ConsoleLogger());
         Runnable printerRunner = new PrinterRunner(stack, printer);
         Runnable printWindowRunner = new PrintWindowRunner(printerRunner, new DurationLoopControl(new SafeRandom(2000, 4000)), printer);
         Thread printerThread = new Thread(new SleepAfterRunner(printWindowRunner, infiniteLoopControl, sleeper, new SafeRandom(15000, 20000)));
