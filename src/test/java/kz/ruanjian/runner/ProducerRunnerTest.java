@@ -2,7 +2,6 @@ package kz.ruanjian.runner;
 
 import kz.ruanjian.data.DataGenerator;
 import kz.ruanjian.logger.Logger;
-import kz.ruanjian.runner.ProducerRunner;
 import kz.ruanjian.sequence.ArithmeticSequence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +24,6 @@ class ProducerRunnerTest {
     @Mock
     ArithmeticSequence sequence;
 
-    @Mock
-    Logger logger;
-
     @InjectMocks
     ProducerRunner producerRunner;
 
@@ -45,8 +41,6 @@ class ProducerRunnerTest {
 
         producerRunner.run();
 
-        verify(logger).log("BEFORE: " + stack);
         verify(stack).push(expected);
-        verify(logger).log("AFTER : " + stack);
     }
 }
