@@ -13,10 +13,6 @@ public class Printer implements OnePerThread {
         this.logger = logger;
     }
 
-    public void print(String prefix, Object value) {
-        logger.log(formatter.timedMessage(prefix, value));
-    }
-
     public void print(PrintEvent event) {
         logger.log(formatter.format(event));
     }

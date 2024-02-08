@@ -41,7 +41,7 @@ class PrinterTest {
         String expected = dataGenerator.randomWord(210);
         doReturn(expected).when(formatter).timedMessage(prefix, message);
 
-        printer.print(prefix, message);
+//        printer.print(prefix, message);
 
         verify(logger).log(expected);
     }
