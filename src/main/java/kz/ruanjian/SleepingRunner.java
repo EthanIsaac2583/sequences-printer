@@ -24,10 +24,10 @@ public class SleepingRunner implements Runnable {
     @Override
     public void run() {
         while (loopControl.canExecute()) {
-            sleeper.sleep(random.get());
             if (runnable != null) {
                 runnable.run();
             }
+            sleeper.sleep(random.get());
         }
     }
 }

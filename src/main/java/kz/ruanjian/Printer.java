@@ -1,9 +1,9 @@
 package kz.ruanjian;
 
+import kz.ruanjian.formatter.PrinterFormatter;
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 
-import java.time.LocalDateTime;
 import java.util.Deque;
 
 public class Printer implements Runnable {
@@ -22,17 +22,21 @@ public class Printer implements Runnable {
 
     @Override
     public void run() {
-        logger.log(LocalDateTime.now() + "          " + "------- [PRINT WINDOW] opened -------");
+        PrinterFormatter formatter = new PrinterFormatter(20);
+        logger.log(formatter.timedMessage("[PRINTER]", "------- [PRINT WINDOW] opened -------"));
+        Long startMillis = System.currentTimeMillis();
 
         durationLoopControl.fromNow();
         while (durationLoopControl.canExecute()) {
             if (!stack.isEmpty()) {
-                logger.log(LocalDateTime.now() + " " + "STACK:   " + stack);
+                logger.log(formatter.timedMessage("[STACK]", stack));
                 Integer polled = stack.poll();
-                logger.log(LocalDateTime.now() + " " + "Printed: " + polled);
+                logger.log(formatter.timedMessage("[Printed]", polled));
             }
         }
 
-        logger.log(LocalDateTime.now() + "          " + "------- [PRINT WINDOW] closed -------");
+        Long endMillis = System.currentTimeMillis();
+        logger.log(formatter.timedMessage("[PRINTER]: ", "------- [PRINT WINDOW] closed -------"));
+        logger.log(formatter.timedMessage("[PRINTER]: ", "Print duration " + (endMillis - startMillis) + " millis"));
     }
 }
