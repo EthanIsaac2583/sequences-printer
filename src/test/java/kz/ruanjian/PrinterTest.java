@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -35,14 +37,20 @@ class PrinterTest {
 
     @Test
     void print_shouldDoAppropriateActions_whenInvoked() {
-        String prefix = dataGenerator.randomWord(10);
-        String message = dataGenerator.randomWord(200);
+        PrintEvent event = generatePrintEvent();
+        String expected = dataGenerator.randomWord(150);
+        doReturn(expected).when(formatter).format(event);
 
-        String expected = dataGenerator.randomWord(210);
-//        doReturn(expected).when(formatter).timedMessage(prefix, message);
-
-//        printer.print(prefix, message);
+        printer.print(event);
 
         verify(logger).log(expected);
+    }
+
+    private PrintEvent generatePrintEvent() {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name(dataGenerator.randomWord(20))
+                .value(dataGenerator.randomWord(120))
+                .build();
     }
 }
