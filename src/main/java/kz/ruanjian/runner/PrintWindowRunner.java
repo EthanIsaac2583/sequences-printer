@@ -1,7 +1,10 @@
 package kz.ruanjian.runner;
 
+import kz.ruanjian.PrintEvent;
 import kz.ruanjian.Printer;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
+
+import java.time.LocalDateTime;
 
 public class PrintWindowRunner implements Runnable {
 
@@ -19,7 +22,7 @@ public class PrintWindowRunner implements Runnable {
 
     @Override
     public void run() {
-        printer.print("[PRINTER]", "------- [PRINT WINDOW] opened -------");
+        printer.print(generateWindowOpenedEvent());
 
         loopControl.fromNow();
         while (loopControl.canExecute()) {
@@ -28,6 +31,22 @@ public class PrintWindowRunner implements Runnable {
             }
         }
 
-        printer.print("[PRINTER]: ", "------- [PRINT WINDOW] closed -------");
+        printer.print(generateWindowClosedEvent());
+    }
+
+    private PrintEvent generateWindowOpenedEvent() {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name("[PRINTER]")
+                .value("------- [PRINT WINDOW] opened -------")
+                .build();
+    }
+
+    private PrintEvent generateWindowClosedEvent() {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name("[PRINTER]")
+                .value("------- [PRINT WINDOW] closed -------")
+                .build();
     }
 }
