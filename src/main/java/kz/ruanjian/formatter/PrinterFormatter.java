@@ -3,8 +3,6 @@ package kz.ruanjian.formatter;
 import kz.ruanjian.OnePerThread;
 import kz.ruanjian.PrintEvent;
 
-import java.time.LocalDateTime;
-
 public class PrinterFormatter implements OnePerThread {
 
     private static final String SPACER = " ";
@@ -15,10 +13,6 @@ public class PrinterFormatter implements OnePerThread {
     public PrinterFormatter(int timeLength, int nameLength) {
         this.timeLength = timeLength;
         this.nameLength = nameLength;
-    }
-
-    public String timedMessage(String prefix, Object value) {
-        return toFixedLength(LocalDateTime.now().toString(), timeLength) + toFixedLength(prefix, nameLength) + value;
     }
 
     public String format(PrintEvent event) {

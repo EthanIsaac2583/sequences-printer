@@ -39,7 +39,7 @@ class PrinterTest {
         String message = dataGenerator.randomWord(200);
 
         String expected = dataGenerator.randomWord(210);
-        doReturn(expected).when(formatter).timedMessage(prefix, message);
+//        doReturn(expected).when(formatter).timedMessage(prefix, message);
 
 //        printer.print(prefix, message);
 
