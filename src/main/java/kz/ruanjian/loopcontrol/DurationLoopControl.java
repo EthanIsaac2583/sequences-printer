@@ -13,7 +13,7 @@ public class DurationLoopControl implements LoopControl, OncePerThread {
         this.random = random;
     }
 
-    public void pointCurrentTime() {
+    public void fromNow() {
         this.startMillis = System.currentTimeMillis();
         this.duration = random.get();
     }

@@ -23,7 +23,7 @@ public class Printer implements Runnable {
     public void run() {
         logger.log("------- [PRINT WINDOW] opened -------");
 
-        durationLoopControl.pointCurrentTime();
+        durationLoopControl.fromNow();
         while (durationLoopControl.canExecute()) {
             Integer polled = stack.poll();
 
