@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.never;
@@ -34,10 +33,10 @@ class PrintWindowRunnerTest {
     PrintWindowRunner printWindowRunner;
 
     @Test
-    void run_should_when1() {
+    void run_shouldNotCallChildRunner_whenLoopControlNotAllows() {
         doReturn(false).when(loopControl).canExecute();
 
-        InOrder inOrder = inOrder(printer, loopControl);
+        InOrder inOrder = inOrder(loopControl, printer);
 
         printWindowRunner.run();
 
@@ -46,6 +45,21 @@ class PrintWindowRunnerTest {
         inOrder.verify(printer).print(createPrintEvent("[PRINTER]", "------- [PRINT WINDOW] closed -------"));
 
         verify(runnable, never()).run();
+    }
+
+    @Test
+    void run_shouldCallChildRunnerNTimes_whenLoopControlAllowedNTimes() {
+        doReturn(true).doReturn(true).doReturn(false).when(loopControl).canExecute();
+
+        InOrder inOrder = inOrder(runnable, loopControl, printer);
+
+        printWindowRunner.run();
+
+        inOrder.verify(printer).print(createPrintEvent("[PRINTER]", "------- [PRINT WINDOW] opened -------"));
+        inOrder.verify(loopControl).fromNow();
+        inOrder.verify(runnable).run();
+        inOrder.verify(runnable).run();
+        inOrder.verify(printer).print(createPrintEvent("[PRINTER]", "------- [PRINT WINDOW] closed -------"));
 
     }
 
