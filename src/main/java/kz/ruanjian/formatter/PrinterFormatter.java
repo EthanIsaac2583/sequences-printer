@@ -1,6 +1,7 @@
 package kz.ruanjian.formatter;
 
 import kz.ruanjian.OnePerThread;
+import kz.ruanjian.PrintEvent;
 
 import java.time.LocalDateTime;
 
@@ -9,15 +10,21 @@ public class PrinterFormatter implements OnePerThread {
     private static final String SPACER = " ";
 
     private final int timeLength;
-    private final int prefixLength;
+    private final int nameLength;
 
-    public PrinterFormatter(int timeLength, int prefixLength) {
+    public PrinterFormatter(int timeLength, int nameLength) {
         this.timeLength = timeLength;
-        this.prefixLength = prefixLength;
+        this.nameLength = nameLength;
     }
 
     public String timedMessage(String prefix, Object value) {
-        return toFixedLength(LocalDateTime.now().toString(), timeLength) + toFixedLength(prefix, prefixLength) + value;
+        return toFixedLength(LocalDateTime.now().toString(), timeLength) + toFixedLength(prefix, nameLength) + value;
+    }
+
+    public String format(PrintEvent event) {
+        return toFixedLength(event.getDateTime().toString(), timeLength) +
+                toFixedLength(event.getName(), nameLength) +
+                event.getValue();
     }
 
     private String toFixedLength(String value, int length) {
