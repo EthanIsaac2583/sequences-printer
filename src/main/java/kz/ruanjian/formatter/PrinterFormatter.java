@@ -14,8 +14,8 @@ public class PrinterFormatter implements OnePerThread {
         this.prefixMaxLength = prefixMaxLength;
     }
 
-    public String timedMessage(String prefix, Object message) {
-        return toFixedLength(LocalDateTime.now().toString(), 30) + toFixedLength(prefix, prefixMaxLength) + message;
+    public String timedMessage(String prefix, Object value) {
+        return toFixedLength(LocalDateTime.now().toString(), 30) + toFixedLength(prefix, prefixMaxLength) + value;
     }
 
     private String toFixedLength(String value, int length) {
