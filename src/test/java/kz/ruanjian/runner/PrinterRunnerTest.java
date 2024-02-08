@@ -1,5 +1,7 @@
 package kz.ruanjian.runner;
 
+import kz.ruanjian.PrintEvent;
+import kz.ruanjian.Printer;
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 import kz.ruanjian.runner.PrinterRunner;
@@ -8,12 +10,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.Deque;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,47 +28,41 @@ class PrinterRunnerTest {
     Deque<Integer> stack;
 
     @Mock
-    DurationLoopControl durationLoopControl;
-
-    @Mock
-    Logger logger;
+    Printer printer;
 
     @InjectMocks
     PrinterRunner printerRunner;
 
     @Test
-    void run_shouldDoAppropriateActions_whenCanExecuteAndHasStackValues() {
-        doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(durationLoopControl).canExecute();
-        doReturn(12).doReturn(8).doReturn(4).when(stack).poll();
-
-        InOrder inOrder = inOrder(logger, stack);
+    void run_shouldNotPrint_whenStackHasNoItem() {
+        doReturn(true).when(stack).isEmpty();
 
         printerRunner.run();
 
-        inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 12);
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 8);
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 4);
-        inOrder.verify(logger).log("------- [PRINT WINDOW] closed -------");
+        verify(stack, never()).poll();
     }
 
     @Test
-    void run_shouldDoAppropriateActions_whenCanExecuteAndHasLackStackValues() {
-        doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(durationLoopControl).canExecute();
-        doReturn(100).when(stack).poll();
+    void run_shouldPrint_whenStackHasItem() {
+        doReturn(false).when(stack).isEmpty();
+        doReturn(12).when(stack).poll();
 
-        InOrder inOrder = inOrder(logger, stack);
+        InOrder inOrder = inOrder(stack, printer);
 
         printerRunner.run();
 
-        inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
+        verify(stack).poll();
+
+        inOrder.verify(printer).print(createPrintEvent("[STACK]", stack));
         inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 100);
-        inOrder.verify(stack).poll();
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("------- [PRINT WINDOW] closed -------");
+        inOrder.verify(printer).print(createPrintEvent("[Printed]", 12));
+    }
+
+    private PrintEvent createPrintEvent(String name, Object value) {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name(name)
+                .value(value)
+                .build();
     }
 }

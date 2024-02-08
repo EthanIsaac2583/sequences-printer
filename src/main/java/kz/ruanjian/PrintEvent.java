@@ -46,13 +46,13 @@ public class PrintEvent {
     public boolean equals(Object o) {
         if (this==o) return true;
         if (o==null || getClass()!=o.getClass()) return false;
-        PrintEvent that = (PrintEvent) o;
-        return Objects.equals(dateTime, that.dateTime) && Objects.equals(name, that.name) && Objects.equals(value, that.value);
+        PrintEvent event = (PrintEvent) o;
+        return Objects.equals(name, event.name) && Objects.equals(value, event.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(dateTime, name, value);
+        return Objects.hash(name, value);
     }
 
     public static Builder builder() {

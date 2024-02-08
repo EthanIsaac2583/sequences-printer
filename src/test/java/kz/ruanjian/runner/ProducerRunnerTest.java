@@ -1,7 +1,6 @@
 package kz.ruanjian.runner;
 
 import kz.ruanjian.data.DataGenerator;
-import kz.ruanjian.logger.Logger;
 import kz.ruanjian.sequence.ArithmeticSequence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
