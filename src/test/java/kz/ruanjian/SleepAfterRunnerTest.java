@@ -1,6 +1,7 @@
 package kz.ruanjian;
 
 import kz.ruanjian.loopcontrol.LoopControl;
+import kz.ruanjian.runner.SleepAfterRunner;
 import kz.ruanjian.threaded.SafeRandom;
 import kz.ruanjian.threaded.SafeSleeper;
 import org.junit.jupiter.api.Test;

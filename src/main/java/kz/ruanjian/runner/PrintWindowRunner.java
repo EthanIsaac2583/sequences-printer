@@ -1,5 +1,6 @@
-package kz.ruanjian;
+package kz.ruanjian.runner;
 
+import kz.ruanjian.Printer;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 
 public class PrintWindowRunner implements Runnable {

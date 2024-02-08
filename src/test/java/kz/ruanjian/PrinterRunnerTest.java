@@ -2,6 +2,7 @@ package kz.ruanjian;
 
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
+import kz.ruanjian.runner.PrinterRunner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;

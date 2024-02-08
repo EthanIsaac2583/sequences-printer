@@ -1,4 +1,4 @@
-package kz.ruanjian;
+package kz.ruanjian.runner;
 
 import kz.ruanjian.loopcontrol.LoopControl;
 import kz.ruanjian.threaded.SafeRandom;
