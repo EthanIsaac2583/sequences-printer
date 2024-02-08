@@ -1,13 +1,11 @@
 package kz.ruanjian.logger;
 
-import kz.ruanjian.OncePerThread;
+import kz.ruanjian.OnePerThread;
 
-public class ConsoleLogger implements Logger, OncePerThread {
+public class ConsoleLogger implements Logger, OnePerThread {
 
     @Override
     public void log(String value) {
-        synchronized (System.out) {
-            System.out.println(value);
-        }
+        System.out.println(value);
     }
 }

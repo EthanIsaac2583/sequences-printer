@@ -1,12 +1,18 @@
 package kz.ruanjian.data;
 
-import java.util.Random;
+import com.github.javafaker.Faker;
 
 public class DataGenerator {
 
-    private final Random random = new Random();
+    private final Faker faker = new Faker();
 
     public int randomInt(int min, int max) {
-        return random.nextInt(max - min) + min;
+        return faker.random().nextInt(min, max);
+    }
+
+    public String randomWord(int length) {
+        return faker.lorem()
+                .fixedString(length)
+                .replaceAll(" ", "_");
     }
 }

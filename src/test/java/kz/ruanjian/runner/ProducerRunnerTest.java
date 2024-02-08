@@ -1,7 +1,6 @@
-package kz.ruanjian;
+package kz.ruanjian.runner;
 
 import kz.ruanjian.data.DataGenerator;
-import kz.ruanjian.logger.Logger;
 import kz.ruanjian.sequence.ArithmeticSequence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class ProducerTest {
+class ProducerRunnerTest {
 
     @Mock
     ConcurrentLinkedDeque<Integer> stack;
@@ -24,11 +23,8 @@ class ProducerTest {
     @Mock
     ArithmeticSequence sequence;
 
-    @Mock
-    Logger logger;
-
     @InjectMocks
-    Producer producer;
+    ProducerRunner producerRunner;
 
     DataGenerator dataGenerator;
 
@@ -42,10 +38,8 @@ class ProducerTest {
         int expected = dataGenerator.randomInt(100, 1_000_000);
         doReturn(expected).when(sequence).generate();
 
-        producer.run();
+        producerRunner.run();
 
-        verify(logger).log("BEFORE: " + stack);
         verify(stack).push(expected);
-        verify(logger).log("AFTER : " + stack);
     }
 }

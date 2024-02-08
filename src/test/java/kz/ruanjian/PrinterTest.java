@@ -1,30 +1,26 @@
 package kz.ruanjian;
 
+import kz.ruanjian.data.DataGenerator;
+import kz.ruanjian.formatter.PrinterFormatter;
 import kz.ruanjian.logger.Logger;
-import kz.ruanjian.loopcontrol.DurationLoopControl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Deque;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class PrinterTest {
 
     @Mock
-    Deque<Integer> stack;
-
-    @Mock
-    DurationLoopControl durationLoopControl;
+    PrinterFormatter formatter;
 
     @Mock
     Logger logger;
@@ -32,39 +28,29 @@ class PrinterTest {
     @InjectMocks
     Printer printer;
 
-    @Test
-    void run_shouldDoAppropriateActions_whenCanExecuteAndHasStackValues() {
-        doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(durationLoopControl).canExecute();
-        doReturn(12).doReturn(8).doReturn(4).when(stack).poll();
+    DataGenerator dataGenerator;
 
-        InOrder inOrder = inOrder(logger, stack);
-
-        printer.run();
-
-        inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 12);
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 8);
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 4);
-        inOrder.verify(logger).log("------- [PRINT WINDOW] closed -------");
+    @BeforeEach
+    void setUp() {
+        dataGenerator = new DataGenerator();
     }
 
     @Test
-    void run_shouldDoAppropriateActions_whenCanExecuteAndHasLackStackValues() {
-        doReturn(true).doReturn(true).doReturn(true).doReturn(false).when(durationLoopControl).canExecute();
-        doReturn(100).when(stack).poll();
+    void print_shouldDoAppropriateActions_whenInvoked() {
+        PrintEvent event = generatePrintEvent();
+        String expected = dataGenerator.randomWord(150);
+        doReturn(expected).when(formatter).format(event);
 
-        InOrder inOrder = inOrder(logger, stack);
+        printer.print(event);
 
-        printer.run();
+        verify(logger).log(expected);
+    }
 
-        inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("Printed: " + 100);
-        inOrder.verify(stack).poll();
-        inOrder.verify(stack).poll();
-        inOrder.verify(logger).log("------- [PRINT WINDOW] closed -------");
+    private PrintEvent generatePrintEvent() {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name(dataGenerator.randomWord(20))
+                .value(dataGenerator.randomWord(120))
+                .build();
     }
 }
