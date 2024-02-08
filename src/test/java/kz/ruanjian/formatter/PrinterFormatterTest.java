@@ -25,7 +25,7 @@ class PrinterFormatterTest {
     }
 
     @Test
-    void format_should_when1() {
+    void format_shouldShouldThrowNullPointerException_whenMissingDateTime() {
         printerFormatter = new PrinterFormatter(2, 2);
         PrintEvent event = PrintEvent.builder()
                 .name(dataGenerator.randomWord(10))
@@ -36,7 +36,7 @@ class PrinterFormatterTest {
     }
 
     @Test
-    void format_should_when2() {
+    void format_shouldShouldThrowNullPointerException_whenMissingName() {
         printerFormatter = new PrinterFormatter(2, 2);
         PrintEvent event = PrintEvent.builder()
                 .dateTime(LocalDateTime.now())
@@ -47,7 +47,7 @@ class PrinterFormatterTest {
     }
 
     @Test
-    void format_should_when3() {
+    void format_shouldDoSubstrings_whenDateTimeAndNameFieldsAreLargerThanWanted() {
         printerFormatter = new PrinterFormatter(4, 4);
 
         LocalDateTime dateTime = LocalDateTime.now();
@@ -68,7 +68,7 @@ class PrinterFormatterTest {
     }
 
     @Test
-    void format_should_when4() {
+    void format_shouldDoPaddings_whenDateTimeAndNameFieldsAreSmallerThanWanted() {
         printerFormatter = new PrinterFormatter(100, 100);
 
         LocalDateTime dateTime = LocalDateTime.now();
