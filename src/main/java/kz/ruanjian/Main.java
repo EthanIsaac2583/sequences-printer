@@ -19,16 +19,16 @@ public class Main {
         SafeSleeper sleeper = new SafeSleeper();
         InfiniteLoopControl infiniteLoopControl = new InfiniteLoopControl();
 
-        ProducerRunner arithmeticThreesProducerRunner = new ProducerRunner(stack, new ArithmeticSequence(3, 3));
-        new Thread(new SleepingRunner(arithmeticThreesProducerRunner, infiniteLoopControl, sleeper, new SafeRandom(500, 1000))).start();
+        Runnable arithmeticThreesProducerRunner = new ProducerRunner(stack, new ArithmeticSequence(3, 3));
+        new Thread(new SleepAfterRunner(arithmeticThreesProducerRunner, infiniteLoopControl, sleeper, new SafeRandom(500, 1000))).start();
 
-        ProducerRunner arithmeticFivesProducerRunner = new ProducerRunner(stack, new ArithmeticSequence(5, 5));
-        new Thread(new SleepingRunner(arithmeticFivesProducerRunner, infiniteLoopControl, sleeper, new SafeRandom(2000, 2500))).start();
+        Runnable arithmeticFivesProducerRunner = new ProducerRunner(stack, new ArithmeticSequence(5, 5));
+        new Thread(new SleepAfterRunner(arithmeticFivesProducerRunner, infiniteLoopControl, sleeper, new SafeRandom(2000, 2500))).start();
 
         Printer printer = new Printer(new PrinterFormatter(26, 13), new ConsoleLogger());
         Runnable printerRunner = new PrinterRunner(stack, printer);
         Runnable printWindowRunner = new PrintWindowRunner(printerRunner, new DurationLoopControl(new SafeRandom(2000, 4000)), printer);
-        Thread printerThread = new Thread(new SleepingRunner(printWindowRunner, infiniteLoopControl, sleeper, new SafeRandom(15000, 20000)));
+        Thread printerThread = new Thread(new SleepAfterRunner(printWindowRunner, infiniteLoopControl, sleeper, new SafeRandom(15000, 20000)));
         printerThread.setDaemon(true);
         printerThread.start();
     }

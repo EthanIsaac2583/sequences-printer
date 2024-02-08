@@ -4,17 +4,17 @@ import kz.ruanjian.loopcontrol.LoopControl;
 import kz.ruanjian.threaded.SafeRandom;
 import kz.ruanjian.threaded.SafeSleeper;
 
-public class SleepingRunner implements Runnable {
+public class SleepAfterRunner implements Runnable {
 
     private final Runnable runnable;
     private final LoopControl loopControl;
     private final SafeSleeper sleeper;
     private final SafeRandom random;
 
-    public SleepingRunner(Runnable runnable,
-                          LoopControl loopControl,
-                          SafeSleeper sleeper,
-                          SafeRandom random) {
+    public SleepAfterRunner(Runnable runnable,
+                            LoopControl loopControl,
+                            SafeSleeper sleeper,
+                            SafeRandom random) {
         this.runnable = runnable;
         this.loopControl = loopControl;
         this.sleeper = sleeper;

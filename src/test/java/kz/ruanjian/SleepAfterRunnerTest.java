@@ -14,7 +14,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 
 @ExtendWith(MockitoExtension.class)
-class SleepingRunnerTest {
+class SleepAfterRunnerTest {
 
     @Mock
     Runnable runnable;
@@ -29,7 +29,7 @@ class SleepingRunnerTest {
     SafeRandom random;
 
     @InjectMocks
-    SleepingRunner sleepingRunner;
+    SleepAfterRunner sleepAfterRunner;
 
     @Test
     void run() {
@@ -38,7 +38,7 @@ class SleepingRunnerTest {
 
         InOrder inOrder = inOrder(sleeper, runnable, random, loopControl);
 
-        sleepingRunner.run();
+        sleepAfterRunner.run();
 
         inOrder.verify(loopControl).canExecute();
         inOrder.verify(random).get();
