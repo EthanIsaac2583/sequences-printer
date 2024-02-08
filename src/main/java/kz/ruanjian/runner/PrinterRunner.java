@@ -1,7 +1,9 @@
 package kz.ruanjian.runner;
 
+import kz.ruanjian.PrintEvent;
 import kz.ruanjian.Printer;
 
+import java.time.LocalDateTime;
 import java.util.Deque;
 
 public class PrinterRunner implements Runnable {
@@ -17,9 +19,25 @@ public class PrinterRunner implements Runnable {
     @Override
     public void run() {
         if (!stack.isEmpty()) {
-            printer.print("[STACK]", stack);
+            printer.print(generateStackEvent());
             Integer polled = stack.poll();
-            printer.print("[Printed]", polled);
+            printer.print(generatePrintedEvent(polled));
         }
+    }
+
+    private PrintEvent generateStackEvent() {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name("[STACK]")
+                .value(stack)
+                .build();
+    }
+
+    private PrintEvent generatePrintedEvent(Integer polled) {
+        return PrintEvent.builder()
+                .dateTime(LocalDateTime.now())
+                .name("[Printed]")
+                .value(polled)
+                .build();
     }
 }
