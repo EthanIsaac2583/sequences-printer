@@ -1,8 +1,10 @@
 package kz.ruanjian.formatter;
 
+import kz.ruanjian.OnePerThread;
+
 import java.time.LocalDateTime;
 
-public class PrinterFormatter {
+public class PrinterFormatter implements OnePerThread {
 
     private static final String SPACER = " ";
 
