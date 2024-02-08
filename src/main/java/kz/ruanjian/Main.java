@@ -32,6 +32,8 @@ public class Main {
         DurationLoopControl printerWorkDurationControl = new DurationLoopControl(printWindowDurationMillis);
         Printer printer = new Printer(stack, printerWorkDurationControl, new ConsoleLogger());
         SafeRandom printerIdleMillis = new SafeRandom(10000, 12000);
-        new Thread(new SleepingRunner(printer, infiniteLoopControl, sleeper, printerIdleMillis)).start();
+        Thread printerThread = new Thread(new SleepingRunner(printer, infiniteLoopControl, sleeper, printerIdleMillis));
+        printerThread.setDaemon(true);
+        printerThread.start();
     }
 }
