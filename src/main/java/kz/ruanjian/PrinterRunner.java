@@ -5,15 +5,15 @@ import kz.ruanjian.logger.Logger;
 
 import java.util.Deque;
 
-public class Printer implements Runnable {
+public class PrinterRunner implements Runnable {
 
     private final Deque<Integer> stack;
     private final Logger logger;
     private final PrinterFormatter formatter;
 
-    public Printer(Deque<Integer> stack,
-                   Logger logger,
-                   PrinterFormatter formatter) {
+    public PrinterRunner(Deque<Integer> stack,
+                         Logger logger,
+                         PrinterFormatter formatter) {
         this.stack = stack;
         this.logger = logger;
         this.formatter = formatter;

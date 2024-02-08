@@ -11,14 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Deque;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class PrinterTest {
+class PrinterRunnerTest {
 
     @Mock
     Deque<Integer> stack;
@@ -30,7 +28,7 @@ class PrinterTest {
     Logger logger;
 
     @InjectMocks
-    Printer printer;
+    PrinterRunner printerRunner;
 
     @Test
     void run_shouldDoAppropriateActions_whenCanExecuteAndHasStackValues() {
@@ -39,7 +37,7 @@ class PrinterTest {
 
         InOrder inOrder = inOrder(logger, stack);
 
-        printer.run();
+        printerRunner.run();
 
         inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
         inOrder.verify(stack).poll();
@@ -58,7 +56,7 @@ class PrinterTest {
 
         InOrder inOrder = inOrder(logger, stack);
 
-        printer.run();
+        printerRunner.run();
 
         inOrder.verify(logger).log("------- [PRINT WINDOW] opened -------");
         inOrder.verify(stack).poll();
