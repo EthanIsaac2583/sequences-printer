@@ -3,6 +3,7 @@ package kz.ruanjian;
 import kz.ruanjian.logger.Logger;
 import kz.ruanjian.loopcontrol.DurationLoopControl;
 
+import java.time.LocalDateTime;
 import java.util.Deque;
 
 public class Printer implements Runnable {
@@ -21,17 +22,17 @@ public class Printer implements Runnable {
 
     @Override
     public void run() {
-        logger.log("------- [PRINT WINDOW] opened -------");
+        logger.log(LocalDateTime.now() + "          " + "------- [PRINT WINDOW] opened -------");
 
         durationLoopControl.fromNow();
         while (durationLoopControl.canExecute()) {
-            Integer polled = stack.poll();
-
-            if (polled != null) {
-                logger.log("Printed: " + polled);
+            if (!stack.isEmpty()) {
+                logger.log(LocalDateTime.now() + " " + "STACK:   " + stack);
+                Integer polled = stack.poll();
+                logger.log(LocalDateTime.now() + " " + "Printed: " + polled);
             }
         }
 
-        logger.log("------- [PRINT WINDOW] closed -------");
+        logger.log(LocalDateTime.now() + "          " + "------- [PRINT WINDOW] closed -------");
     }
 }

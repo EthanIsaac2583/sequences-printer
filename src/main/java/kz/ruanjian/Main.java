@@ -19,12 +19,12 @@ public class Main {
         InfiniteLoopControl infiniteLoopControl = new InfiniteLoopControl();
 
         ArithmeticSequence arithmeticThrees = new ArithmeticSequence(3, 3);
-        Producer arithmeticThreesProducer = new Producer(stack, arithmeticThrees, new ConsoleLogger());
+        Producer arithmeticThreesProducer = new Producer(stack, arithmeticThrees);
         SafeRandom threesIdleMillis = new SafeRandom(200, 300);
         new Thread(new SleepingRunner(arithmeticThreesProducer, infiniteLoopControl, sleeper, threesIdleMillis)).start();
 
         ArithmeticSequence arithmeticFives = new ArithmeticSequence(5, 5);
-        Producer arithmeticFivesProducer = new Producer(stack, arithmeticFives, new ConsoleLogger());
+        Producer arithmeticFivesProducer = new Producer(stack, arithmeticFives);
         SafeRandom fivesIdleMillis = new SafeRandom(2000, 2500);
         new Thread(new SleepingRunner(arithmeticFivesProducer, infiniteLoopControl, sleeper, fivesIdleMillis)).start();
 
