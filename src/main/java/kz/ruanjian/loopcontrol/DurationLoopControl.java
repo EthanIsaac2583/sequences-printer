@@ -5,19 +5,17 @@ import kz.ruanjian.threaded.SafeRandom;
 
 public class DurationLoopControl implements LoopControl, OncePerThread {
 
-    private final int durationMinMillis;
-    private final int durationMaxMillis;
+    private final SafeRandom random;
     private long duration;
     private long startMillis;
 
-    public DurationLoopControl(int durationMinMillis, int durationMaxMillis) {
-        this.durationMinMillis = durationMinMillis;
-        this.durationMaxMillis = durationMaxMillis;
+    public DurationLoopControl(SafeRandom random) {
+        this.random = random;
     }
 
     public void pointCurrentTime() {
         this.startMillis = System.currentTimeMillis();
-        this.duration = new SafeRandom(durationMinMillis, durationMaxMillis).get();
+        this.duration = random.get();
     }
 
     @Override
