@@ -1,4 +1,4 @@
-package kz.ruanjian;
+package kz.ruanjian.runner;
 
 import kz.ruanjian.data.DataGenerator;
 import kz.ruanjian.logger.Logger;
