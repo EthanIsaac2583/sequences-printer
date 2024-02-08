@@ -24,7 +24,6 @@ public class PrintWindowRunner implements Runnable {
     @Override
     public void run() {
         logger.log(formatter.timedMessage("[PRINTER]", "------- [PRINT WINDOW] opened -------"));
-        long startMillis = System.currentTimeMillis();
 
         loopControl.fromNow();
         while (loopControl.canExecute()) {
@@ -33,8 +32,6 @@ public class PrintWindowRunner implements Runnable {
             }
         }
 
-        long duration = System.currentTimeMillis() - startMillis;
         logger.log(formatter.timedMessage("[PRINTER]: ", "------- [PRINT WINDOW] closed -------"));
-        logger.log(formatter.timedMessage("[PRINTER]: ", "Print duration " + duration + " millis"));
     }
 }
