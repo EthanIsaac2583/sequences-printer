@@ -40,8 +40,6 @@ public class Main {
         Runnable printWindowRunner = new PrintWindowRunner(printerRunner, new DurationLoopControl(new SafeRandom(2000, 4000)), printer);
         printerService.execute(new SleepAfterRunner(printWindowRunner, applicationLoopControl, sleeper, new SafeRandom(15000, 20000)));
 
-//        applicationLoopControl.stopExecution();
-
         producersService.shutdown();
         printerService.shutdown();
     }
